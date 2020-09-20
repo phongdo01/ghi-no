@@ -1,3 +1,4 @@
+import * as firebase from 'firebase';
 var firebaseConfig = {
     apiKey: "AIzaSyCkUIIxC-BZWL4nPJoHJAxHUpoKTj6TuT4",
     authDomain: "ghi-no.firebaseapp.com",
@@ -9,6 +10,6 @@ var firebaseConfig = {
     measurementId: "G-EJGDGFYR24"
   };
   // Initialize Firebase
-//   firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
 //   firebase.analytics();
-  export default firebaseConfig;
+  export default firebase;
