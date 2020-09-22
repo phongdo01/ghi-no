@@ -1,18 +1,13 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import config from '../config/firebase'
-
+import context from '../Context'
 var bcrypt = require('bcryptjs');
 
 
-const submit = function (username, password) {
-    
-}
 const Login = (props) => {
+    let test = useContext(context)
     let [username, setUsername] = useState('')
     let [password, setPassword] = useState('')
-    // let getOnChange = function(e) {
-
-    // }
     function getOnChange(e) {
         const name = e.target.name
         const value = e.target.value
@@ -23,17 +18,21 @@ const Login = (props) => {
             setPassword(value)
         }
     }
+    const submit = function (username, password) {
+        test.changePrjName()
+    }
+    console.log('test: ', test)
     return (
         <div className="container col-md-4">
             <h2>Đăng nhập</h2>
             <form>
                 <div className="form-group">
                     <label htmlFor="username">Tên đăng nhập:</label>
-                    <input type="text" className="form-control" id="username" placeholder="Enter username" name="username" />
+                    <input type="text" className="form-control" id="username" placeholder="Enter username" name="username" onChange={getOnChange.bind(this)}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="pwd">Mật khẩu:</label>
-                    <input type="password" className="form-control" id="pwd" placeholder="Enter password" name="password" />
+                    <input type="password" className="form-control" id="pwd" placeholder="Enter password" name="password" onChange={getOnChange.bind(this)}/>
                 </div>
                 <div className="form-group form-check d-inline-block">
                     <label className="form-check-label">
@@ -44,12 +43,11 @@ const Login = (props) => {
                 <a href='/regist'>Đăng ký</a>
                 </div>
                 <div>
-                <button type="submit" className="btn btn-primary">Đăng nhập</button>
+                <button type="reset" className="btn btn-primary" onClick={submit.bind(this)}>Đăng nhập</button>
                 </div>
             </form>
         </div>
     )
 }
 
-export default Login
-// export default Login;
+export default Login;
