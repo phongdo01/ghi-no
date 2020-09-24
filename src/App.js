@@ -11,13 +11,10 @@ import {
 } from "react-router-dom";
 
 function App() {
-  let [prjName, setPrjName] = useState(0)
-  console.log('a')
   return (
     <context.Provider value={
       {
-      prjName,
-      changePrjName: ()=> setPrjName(prjName+1)
+      prjName:1,
       }}>
       <Router>
         <Switch>

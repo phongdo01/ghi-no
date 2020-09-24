@@ -41,7 +41,6 @@ const Component = (props) => {
     }
     async function submitData(data) {
         const err = await checkInput(data)
-        console.log('err: ', err)
         if (err) {
             setErr(err)
             return
