@@ -1,4 +1,4 @@
-import React, { Component, useContext, useState,  } from 'react';
+import React, {  useContext, useState,  } from 'react';
 import { Redirect } from "react-router-dom";
 import lcontext from '../Context'
 import firebase from '../config/firebase'

@@ -8,23 +8,46 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
-
+const todoReducer = (state, action) => {
+  switch (action.type) {
+    case 'set':
+      return action.user;
+    
+    default:
+      return state;
+  }
+};
 function App() {
   let [user, setUser] = useState('')
+  console.log('liut tiu: ', user)
+  return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
+}
+function renderWhenNotLogin({user, setUser}) {
   return (
-    <context.Provider value={{ user: user, setUser: (u)=>setUser(u)}}>
+    <context.Provider value={{ user: user, setUser: (u) => setUser(u) }}>
       <Router>
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
-          <Route path="/debit" component={MainScr} />
-          <Route path="/" component={() => (<h2><a href='/login'>home</a></h2>)} />
+          {/* <Route path="/debit" component={MainScr} /> */}
+          <Route path="/" component={()=>(<a href='/login'>home</a>)} />
         </Switch>
       </Router>
     </context.Provider>
-  );
+  )
 }
-
+function renderWhenLogined({user, setUser}) {
+  return (
+    <context.Provider value={{ user: user, setUser: (u) => setUser(u) }}>
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/regist" component={Regist} />
+          <Route path="/debit" component={()=><MainScr/>} />
+        </Switch>
+      </Router>
+    </context.Provider>
+  )
+}
 export default App;

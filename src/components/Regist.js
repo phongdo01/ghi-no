@@ -50,6 +50,8 @@ const Component = (props) => {
         var hash = bcrypt.hashSync(data.password, salt);
         data.password = hash
         delete data.password_confirmation
+        data.noAi = []
+        data.aiNo = []
         ref.child(data.username).set(data)
         window.location.href = "/login";
     }
