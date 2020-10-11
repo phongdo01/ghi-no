@@ -6,9 +6,15 @@ import BenPhai from './BenPhai'
 import BenTren from './BenTren'
 
 
-export default function () {
+export default function (props) {
     let context = useContext(mcontext)
+    let [count, setCount] = useState(0)
     let user = context.user
+    function clickMe() {
+        console.log('aaa');
+        setCount(count+1);
+        context.setUser('user '+count);
+    }
     return user?(
         <div className='container col-md-12'>
             <MenuBar user={context.user} />
@@ -23,7 +29,7 @@ export default function () {
                 </div>
                 <div className='col-md-8' id='benphai'>
                     <BenPhai />
-                    <button className='btn btn-primary' onClick={()=>context.setUser(user)}>click me</button>
+                    <button className='btn btn-primary' onClick={clickMe.bind(this)}>click me</button>
                 </div>
             </div>
         </div>

@@ -9,18 +9,12 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-const todoReducer = (state, action) => {
-  switch (action.type) {
-    case 'set':
-      return action.user;
-    
-    default:
-      return state;
-  }
-};
+
 function App() {
   let [user, setUser] = useState('')
-  console.log('liut tiu: ', user)
+  // let user = '1'
+  // let setUser = function(){}
+  console.log('user: ', user)
   return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
 }
 function renderWhenNotLogin({user, setUser}) {
@@ -44,7 +38,7 @@ function renderWhenLogined({user, setUser}) {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
-          <Route path="/debit" component={()=><MainScr/>} />
+          <Route path="/debit" component={MainScr} />
         </Switch>
       </Router>
     </context.Provider>

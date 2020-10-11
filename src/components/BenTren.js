@@ -6,10 +6,15 @@ export default function () {
     let context = useContext(mcontext)
     // let aiNo = context.user.aiNo || []
     let [aiNo, setAiNo] = useState(context.user.aiNo||[])
+    let [count, setCount] = useState(0)
+    // let aiNo = context.user.aiNo || []
     let deleteAiNo = function (key) {
         let user = context.user
-        delete user.aiNo
-        context.setUser(user)
+        user.aiNo.splice(key, 1)
+        setCount(count+1);
+        // delete user.aiNo
+        context.setUser(user);
+        setAiNo(user.aiNo)
     }
     return (
         <div className="card" id='benTren'>
