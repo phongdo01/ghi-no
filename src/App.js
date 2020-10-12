@@ -14,7 +14,6 @@ function App() {
   let [user, setUser] = useState('')
   // let user = '1'
   // let setUser = function(){}
-  console.log('user: ', user)
   return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
 }
 function renderWhenNotLogin({user, setUser}) {

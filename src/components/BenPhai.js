@@ -33,6 +33,7 @@ export default function (props) {
         }
         user.aiNo = aiNo
         ref.set(user)
+        context.setUser({...user})
     }
     return (
         <div className="card" style={{ height: '100%' }}>

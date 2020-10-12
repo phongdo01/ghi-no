@@ -1,21 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
 import mcontext from '../Context'
+import firebase from '../config/firebase'
 
 
-export default function () {
+export default function (props) {
     let context = useContext(mcontext)
     // let aiNo = context.user.aiNo || []
     let [aiNo, setAiNo] = useState(context.user.aiNo||[])
-    let [count, setCount] = useState(0)
     // let aiNo = context.user.aiNo || []
     let deleteAiNo = function (key) {
         let user = context.user
         user.aiNo.splice(key, 1)
-        setCount(count+1);
         // delete user.aiNo
+        const ref = firebase.database().ref('account/'+user.username)
+        ref.set(user)
         context.setUser(user);
-        setAiNo(user.aiNo)
+        setAiNo([...user.aiNo])
     }
+    console.log('tinh ban: ', context.user.aiNo)
+    useEffect(function(){
+        console.log('length: ', context.user)
+        setAiNo([...context.user.aiNo]||[])
+    }, [context.user.aiNo])
     return (
         <div className="card" id='benTren'>
             <div className="card-header"><b>Ai nợ</b></div>
