@@ -17,10 +17,9 @@ export default function (props) {
         context.setUser(user);
         setAiNo([...user.aiNo])
     }
-    console.log('tinh ban: ', context.user.aiNo)
     useEffect(function(){
-        console.log('length: ', context.user)
-        setAiNo([...context.user.aiNo]||[])
+    console.log('aiNo: ', aiNo)
+    setAiNo([...context.user.aiNo]||[])
     }, [context.user.aiNo])
     return (
         <div className="card" id='benTren'>

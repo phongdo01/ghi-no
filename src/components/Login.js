@@ -35,7 +35,7 @@ const Login = (props) => {
         }
         
         context.setUser(snap[username])
-        localStorage.setItem("user", snap[username]);
+        localStorage.setItem("user", JSON.stringify(snap[username]));
         setErr('redirect')
         // window.location.href = "/debit";
         // return '.';

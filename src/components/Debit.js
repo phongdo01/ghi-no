@@ -29,7 +29,6 @@ export default function (props) {
                 </div>
                 <div className='col-md-8' id='benphai'>
                     <BenPhai />
-                    <button className='btn btn-primary' onClick={clickMe.bind(this)}>click me</button>
                 </div>
             </div>
         </div>

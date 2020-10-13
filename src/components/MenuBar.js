@@ -1,5 +1,6 @@
 import React from 'react';
-export default function menuBar({user}) {
+import Context from '../Context';
+export default function menuBar({ user }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="a">Navbar w/ text</a>
@@ -19,8 +20,21 @@ export default function menuBar({user}) {
                     </li>
                 </ul>
                 <span className="navbar-text">
-                    Xin chào {user.last_name}
+
                 </span>
+                <ul className="navbar-nav">
+                    <li className="dropdown">
+                        <a className="dropdown-toggle dropdown-menu-left" data-toggle="dropdown" href="#">Xin chào {user.first_name}
+                        <span className="caret"></span>
+                        </a>
+                        <ul className="dropdown-menu">
+                            <li><a href="#">Đăng xuất</a></li>
+                            <li><a href="#">Page 1-2</a></li>
+                            <li><a href="#">Page 1-3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
         </nav>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login'
 import Regist from './components/Regist'
@@ -12,8 +12,9 @@ import {
 
 function App() {
   let [user, setUser] = useState('')
-  // let user = '1'
-  // let setUser = function(){}
+  useEffect(function(){
+    setUser(JSON.parse(localStorage.getItem('user')))
+  }, [])
   return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
 }
 function renderWhenNotLogin({user, setUser}) {
