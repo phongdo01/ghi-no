@@ -4,28 +4,18 @@ import { Redirect } from "react-router-dom";
 import MenuBar from './MenuBar'
 import BenPhai from './BenPhai'
 import BenTren from './BenTren'
-
+import BenDuoi from './BenDuoi'
 
 export default function (props) {
     let context = useContext(mcontext)
-    let [count, setCount] = useState(0)
     let user = context.user
-    function clickMe() {
-        console.log('aaa');
-        setCount(count+1);
-        context.setUser('user '+count);
-    }
     return user?(
         <div className='container col-md-12'>
             <MenuBar user={context.user} />
-            <div className='row  mt-2'>
-                <div className='col-md-4'>
+            <div className='row  mt-2' style={{height: '500px'}}>
+                <div className='col-md-4' id='bentrai'>
                     <BenTren />
-                    <div className="card mt-2" id='benDuoi'>
-                        <div className="card-header">Header</div>
-                        <div className="card-body">Content</div>
-                        <div className="card-footer">Footer</div>
-                    </div>
+                    <BenDuoi />
                 </div>
                 <div className='col-md-8' id='benphai'>
                     <BenPhai />

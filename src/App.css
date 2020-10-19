@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+#bentrai {
+  height: 100%;
+}
+#bentren {
+  height: 50%;
+}
+#benduoi {
+  height: 50%;
+}
+.card-body {
+  overflow: scroll;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Context from '../Context';
+// import Context from '../Context';
 export default function menuBar({ user }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

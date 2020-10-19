@@ -35,6 +35,25 @@ export default function (props) {
         ref.set(user)
         context.setUser({...user})
     }
+    let onNoAi = async function() {
+        if (!name || !amount) {
+            alert('Bạn chưa nhập ' + name ? 'tên' : 'số tiền')
+            return
+        }
+        const user = context.user
+        const ref = firebase.database().ref('account/'+user.username)
+        const snap = await (await ref.once('value')).val()
+        let noAi = snap.noAi||[]
+        let index = noAi.findIndex(e=>e.name.toUpperCase() == name.toUpperCase())
+        if (index !== -1) {
+            noAi[index].amount+=Number(amount)
+        } else {
+            noAi.push({name: name, amount: Number(amount),date: new Date()})
+        }
+        user.noAi = noAi
+        ref.set(user)
+        context.setUser({...user})
+    }
     return (
         <div className="card" style={{ height: '100%' }}>
             <div className="card-header">Thông tin</div>
@@ -46,12 +65,12 @@ export default function (props) {
                         <span className='ml-3'>Số tiền</span>
                         <input type='number' className='form-control ml-2' name='amount' onChange={getOnChange.bind(this)} />
                         {/* <button className='btn btn-primary ml-2'>Thêm</button> */}
-                        <button type='reset' className='btn btn-primary ml-2' onClick={onAiNo.bind(this)}><i>Ai nợ</i></button>
-                        <button type='reset' className='btn btn-primary ml-2' onClick={onAiNo.bind(this)}><i>Nợ ai</i></button>
+                        <button type='reset' className='btn btn-primary ml-3' onClick={onAiNo.bind(this)}><i>Ai nợ</i></button>
+                        <button type='reset' className='btn btn-primary ml-3' onClick={onNoAi.bind(this)}><i>Nợ ai</i></button>
                     </div>
                 </form>
             </div>
-            <div className="card-footer">Footer</div>
+            {/* <div className="card-footer">Footer</div> */}
         </div>
     )
 }
