@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Regist from './components/Regist'
 import MainScr from './components/Debit'
 import context from './Context'
+import { useBeforeunload } from 'react-beforeunload';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,9 +12,17 @@ import {
 } from "react-router-dom";
 
 function App() {
+  
+  useBeforeunload((event) => event.preventDefault());
   let [user, setUser] = useState('')
   useEffect(function(){
     setUser(JSON.parse(localStorage.getItem('user')))
+    window.addEventListener('beforeunload', (event) => {
+      // Cancel the event as stated by the standard.
+      event.preventDefault();
+      // Older browsers supported custom message
+      event.returnValue = '';
+    });
   }, [])
   return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
 }
