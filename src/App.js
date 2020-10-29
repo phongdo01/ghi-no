@@ -21,7 +21,7 @@ function App() {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // Older browsers supported custom message
-      event.returnValue = '';
+      // event.returnValue = '';
     });
   }, [])
   return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))

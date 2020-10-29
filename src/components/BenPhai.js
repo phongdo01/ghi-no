@@ -115,7 +115,6 @@ export default function (props) {
             id: p
         }
     })
-    console.log('data: ', data)
     return (
         <div className="card" style={{ height: '100%' }}>
             <div className="card-header">Thông tin</div>
