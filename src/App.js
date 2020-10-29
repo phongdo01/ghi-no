@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from "react-router-dom";
 import './App.css';
 import Login from './components/Login'
 import Regist from './components/Regist'
@@ -19,7 +20,7 @@ function App() {
     setUser(JSON.parse(localStorage.getItem('user')))
     window.addEventListener('beforeunload', (event) => {
       // Cancel the event as stated by the standard.
-      event.preventDefault();
+      // event.preventDefault();
       // Older browsers supported custom message
       // event.returnValue = '';
     });
@@ -34,7 +35,7 @@ function renderWhenNotLogin({user, setUser}) {
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
           {/* <Route path="/debit" component={MainScr} /> */}
-          <Route path="/" component={()=>(<a href='/login'>home</a>)} />
+          <Route path="/" component={()=>(<Redirect to='/login'/>)} />
         </Switch>
       </Router>
     </context.Provider>
