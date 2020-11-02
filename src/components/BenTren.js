@@ -52,7 +52,7 @@ export default function (props) {
                         <div key={k} className='row col-md-12'>
                             <div className='col-md-4'>{e.name}</div>
                             {/* <div className='col-md-6'>{e.amount}$</div> */}
-                            <div className='col-md-6'>
+                            <div className='col-md-5'>
                                 <NumberFormat
                                     value={e.amount}
                                     className='d-flex justify-content-end'
@@ -61,7 +61,12 @@ export default function (props) {
                                     suffix={'$'}
                                 />
                             </div>
-                            <div className='col-md-2' ><span onClick={deleteAiNo.bind(this, k)}><i className="fa fa-trash" aria-hidden="true"></i></span></div>
+                            <div className='col-md-3'>
+                            <span onClick={deleteAiNo.bind(this, k)}><i className="fa fa-credit-card" aria-hidden="true"></i></span>
+                            <span onClick={deleteAiNo.bind(this, k)} className='ml-1'><i className="fa fa-trash" aria-hidden="true"></i></span>
+                            </div>
+                            {/* <div className='col-md-2' ><span onClick={deleteAiNo.bind(this, k)}><i className="fa fa-trash" aria-hidden="true"></i></span></div> */}
+                            {/* <div className='col-md-2' ><span onClick={deleteAiNo.bind(this, k)}><i className="fa fa-credit-card" aria-hidden="true"></i></span></div> */}
                         </div>
                     ))
                 }
