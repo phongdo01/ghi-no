@@ -9,6 +9,7 @@ export default function (props) {
     let [name, setName] = useState('')
     let [amount, setAmount] = useState('')
     let [history, setHistory] = useState([])
+    let [search, setSearch] = useState('')
     let getOnChange = function (e) {
         const name = e.target.name
         const value = e.target.value
@@ -17,6 +18,7 @@ export default function (props) {
                 break
             case 'amount': setAmount(value)
                 break
+            case 'search': setSearch(value)
         }
     }
     let onAiNo = async function () {
@@ -106,18 +108,24 @@ export default function (props) {
             valueGetter: (params) =>
                 // `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
                 // {console.log('param: ', params)}
-                params.getValue('type') == 'in'?'Vay':'Cho vay'
+                params.getValue('type') == 'in' ? 'Vay' : 'Cho vay'
         },
     ];
-    let data = (history||[]).map((e, p)=>{
+    let data = (history || []).map((e, p) => {
         return {
             ...e,
             id: p
         }
     })
+    let dt = data.filter(e=>e.name.toUpperCase().includes(search.toUpperCase()))
     return (
         <div className="card" style={{ height: '100%' }}>
-            <div className="card-header">Thông tin</div>
+            <div className="card-header col-md-12">
+                Thông tin
+                <div id='search' className='col-md-3 d-inline row'>
+                    <input type='text' className='form-control float-right col-md-3' placeholder='Lọc theo tên' name='search' onChange={getOnChange.bind(this)}/>
+                </div>
+            </div>
             <div className="card-body">
                 <form>
                     <div className='row form-inline'>
@@ -132,7 +140,7 @@ export default function (props) {
                     </div>
                 </form>
                 <div id='history' className='mt-3' style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={data} columns={columns} pageSize={5} />
+                    <DataGrid rows={dt} columns={columns} pageSize={5} />
                 </div>
             </div>
         </div>
