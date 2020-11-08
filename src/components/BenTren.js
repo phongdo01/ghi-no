@@ -10,6 +10,7 @@ export default function (props) {
     // let aiNo = context.user.aiNo || []
     let [aiNo, setAiNo] = useState(context.user.aiNo || [])
     let [open, setOpen] = useState(false)
+    let [data, setData] = useState('')
     // let aiNo = context.user.aiNo || []
     let deleteAiNo = function (key) {
         let user = context.user
@@ -36,14 +37,14 @@ export default function (props) {
         const aiNo = snap.aiNo || []
         setAiNo(aiNo)
     }
-    function openModal() {
+    function openModal(e, k) {
         setOpen(true)
+        setData({...e, type: 'AiNo', index: k})
     }
     function closeModal() {
         setOpen(false)
     }
     const sum = aiNo.reduce((total, e) => total + Number(e.amount), 0)
-        
     return (
         <div className="card" id='bentren'>
             <div className="card-header">
@@ -72,14 +73,14 @@ export default function (props) {
                                 />
                             </div>
                             <div className='col-md-3'>
-                                <span onClick={() => openModal()}><i className="fa fa-credit-card" aria-hidden="true"></i></span>
+                                <span onClick={() => openModal(e, k)}><i className="fa fa-credit-card" aria-hidden="true"></i></span>
                                 <span onClick={deleteAiNo.bind(this, k)} className='ml-1'><i className="fa fa-trash" aria-hidden="true"></i></span>
                             </div>
                         </div>
                     ))
                 }
                
-                <TraTien open={open} closeModal={closeModal}/>
+                <TraTien open={open} closeModal={closeModal} data={data}/>
             </div>
             {/* <div className="card-footer">Footer</div> */}
         </div>

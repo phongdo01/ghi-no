@@ -8,7 +8,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-
+import NumberFormat from 'react-number-format';
+import firebase from '../config/firebase'
+import mcontext from '../Context'
 
 const styles = (theme) => ({
     root: {
@@ -51,9 +53,72 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
+let onAiNo = async function (context, amount, index, type) {
 
-function TraTien({ open, closeModal }) {
-    
+    const user = context.user
+    const ref = firebase.database().ref('account/' + user.username)
+    const snap = await (await ref.once('value')).val()
+    let aiNo = snap.aiNo || []
+    let history = snap.history || []
+    aiNo[index].amount += type == 'T' ? Number(amount) : Number(amount) * (-1)
+
+    user.aiNo = aiNo
+    let dat = new Date();
+    let name = aiNo[index].name
+    history.unshift({
+        name: name, amount: Number(amount),
+        date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
+        type: type == 'G' ? 'tnm' : 'out'
+    })
+    user.history = history
+    ref.set(user)
+    context.setUser({ ...user })
+}
+let onNoAi = async function (context, amount, index, type) {
+
+    const user = context.user
+    const ref = firebase.database().ref('account/' + user.username)
+    const snap = await (await ref.once('value')).val()
+    let noAi = snap.noAi || []
+    let history = snap.history || []
+
+    noAi[index].amount += type == 'T' ? Number(amount) : Number(amount) * (-1)
+
+    user.noAi = noAi
+    let dat = new Date();
+    let name = noAi[index].name
+    history.unshift({
+        name: name, amount: Number(amount),
+        date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
+        type: type == 'G' ? 'mtn' : 'in'
+    })
+    user.history = history
+    ref.set(user)
+    context.setUser({ ...user })
+}
+function TraTien({ open, closeModal, data }) {
+    let context = useContext(mcontext)
+    let [amount, setAmount] = useState('')
+    let [type, setType] = useState('T')
+    let changeAmount = (value) => {
+        setAmount(value.value)
+    }
+    const close = () => {
+        if (data.type == 'AiNo') {
+            onAiNo(context, amount, data.index, type)
+        } else {
+            onNoAi(context, amount, data.index, type)
+        }
+        closeModal()
+        reset()
+    }
+    const changeChecked = (e) => {
+        setType(e.target.value)
+    }
+    const reset = ()=>{
+        setType('T')
+        setAmount('')
+    }
     return (
         <>
             <Dialog onClose={closeModal} aria-labelledby="customized-dialog-title" open={open} fullWidth={true} maxWidth={'sm'}>
@@ -63,23 +128,31 @@ function TraTien({ open, closeModal }) {
                 <DialogContent dividers>
                     <div className='col-md-12 row'>
                         <span>Số tiền:&nbsp;</span>
-                            <input type='number' className='form-control col-md-6' /> &nbsp;
-                        {/* <input type="radio" className="form-check-input" name="optradio" value='T'/>Option 1
-                        <input type="radio" className="form-check-input" name="optradio" value='G'/>Option 2 */}
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" className="form-check-input" name="optradio" value='T'/>Tăng
+                        {/* <input type='number' className='form-control col-md-6' /> &nbsp; */}
+                        <NumberFormat
+                            value={amount}
+                            displayType={'input'}
+                            thousandSeparator={true}
+                            // style={{ float: 'right' }}
+                            className='form-control col-md-6'
+                            onValueChange={changeAmount}
+                            suffix={'$'}
+                        />
+                        &nbsp;
+                        <div className="form-check-inline">
+                            <label className="form-check-label">
+                                <input checked={type == 'T'} type="radio" className="form-check-input" name="optradio" value='T' onClick={changeChecked} readOnly />Tăng
                         </label>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" className="form-check-input" name="optradio" value='G'/>Giảm
+                        <div className="form-check-inline">
+                            <label className="form-check-label">
+                                <input checked={type == 'G'} type="radio" className="form-check-input" name="optradio" value='G' onClick={changeChecked} readOnly />Giảm
                         </label>
                         </div>
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={closeModal} color="primary">
+                    <Button autoFocus onClick={close} color="primary">
                         Save changes
                     </Button>
                 </DialogActions>

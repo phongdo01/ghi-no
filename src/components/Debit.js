@@ -9,7 +9,7 @@ import BenDuoi from './BenDuoi'
 export default function (props) {
     let context = useContext(mcontext)
     let user = context.user
-    return user?(
+    return /*user?*/(
         <div className='container col-md-12'>
             <MenuBar user={context.user} />
             <div className='row  mt-2' style={{height: '500px'}}>
@@ -22,6 +22,6 @@ export default function (props) {
                 </div>
             </div>
         </div>
-    ):<Redirect to='/login'/>
+    )/*:<Redirect to='/login'/>*/
 }
 

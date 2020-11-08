@@ -14,17 +14,15 @@ import {
 
 function App() {
   
-  useBeforeunload((event) => event.preventDefault());
+  // useBeforeunload((event) => event.preventDefault());
   let [user, setUser] = useState('')
   useEffect(function(){
+    console.log('didmount')
     setUser(JSON.parse(localStorage.getItem('user')))
-    window.addEventListener('beforeunload', (event) => {
-      // Cancel the event as stated by the standard.
-      // event.preventDefault();
-      // Older browsers supported custom message
-      // event.returnValue = '';
-    });
+    // window.addEventListener('beforeunload', (event) => {
+    // });
   }, [])
+  console.log('user: ', user)
   return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
 }
 function renderWhenNotLogin({user, setUser}) {
@@ -35,7 +33,7 @@ function renderWhenNotLogin({user, setUser}) {
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
           {/* <Route path="/debit" component={MainScr} /> */}
-          <Route path="/" component={()=>(<Redirect to='/login'/>)} />
+          {/* <Route path="/" component={()=>(<Redirect to='/login'/>)} /> */}
         </Switch>
       </Router>
     </context.Provider>
@@ -46,9 +44,9 @@ function renderWhenLogined({user, setUser}) {
     <context.Provider value={{ user: user, setUser: (u) => setUser(u) }}>
       <Router>
         <Switch>
+          <Route path="/debit" component={MainScr} />
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
-          <Route path="/debit" component={MainScr} />
         </Switch>
       </Router>
     </context.Provider>
