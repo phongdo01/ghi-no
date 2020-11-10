@@ -40,7 +40,7 @@ const Login = (props) => {
         // window.location.href = "/debit";
         // return '.';
     }
-    return err!=='redirect'?(
+    return !context.user?err!=='redirect'?(
         <div className="container col-md-4">
             <h2>Đăng nhập</h2>
             <form>
@@ -69,7 +69,7 @@ const Login = (props) => {
                 </div>
             </form>
         </div>
-    ):<Redirect to='/debit'/>
+    ):<Redirect to='/debit'/>:<Redirect to='/debit'/>
 }
 
 export default Login;

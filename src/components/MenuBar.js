@@ -1,6 +1,11 @@
 import React from 'react';
 // import Context from '../Context';
 export default function menuBar({ user }) {
+    const logOut = function() {
+        console.log('log out')
+        localStorage.clear();
+        window.location.href = '/';
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="a">Navbar w/ text</a>
@@ -28,9 +33,7 @@ export default function menuBar({ user }) {
                         <span className="caret"></span>
                         </a>
                         <ul className="dropdown-menu">
-                            <li><a href="#">Đăng xuất</a></li>
-                            <li><a href="#">Page 1-2</a></li>
-                            <li><a href="#">Page 1-3</a></li>
+                            <li><a href="#" onClick={logOut}>Đăng xuất</a></li>
                         </ul>
                     </li>
                 </ul>

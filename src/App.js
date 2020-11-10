@@ -14,16 +14,11 @@ import {
 
 function App() {
   
-  // useBeforeunload((event) => event.preventDefault());
   let [user, setUser] = useState('')
   useEffect(function(){
-    console.log('didmount')
     setUser(JSON.parse(localStorage.getItem('user')))
-    // window.addEventListener('beforeunload', (event) => {
-    // });
   }, [])
-  console.log('user: ', user)
-  return user?(renderWhenLogined({user, setUser})):(renderWhenNotLogin({user, setUser}))
+  return user?renderWhenLogined({user, setUser}):renderWhenNotLogin({user, setUser})
 }
 function renderWhenNotLogin({user, setUser}) {
   return (
@@ -33,7 +28,7 @@ function renderWhenNotLogin({user, setUser}) {
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
           {/* <Route path="/debit" component={MainScr} /> */}
-          {/* <Route path="/" component={()=>(<Redirect to='/login'/>)} /> */}
+          <Route path="/" component={()=>(<Redirect to='/login'/>)} />
         </Switch>
       </Router>
     </context.Provider>
