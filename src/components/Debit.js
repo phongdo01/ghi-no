@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import mcontext from '../Context'
-import { Redirect } from "react-router-dom";
 import MenuBar from './MenuBar'
 import BenPhai from './BenPhai'
 import BenTren from './BenTren'
@@ -8,7 +7,6 @@ import BenDuoi from './BenDuoi'
 
 export default function (props) {
     let context = useContext(mcontext)
-    let user = context.user
     return /*user?*/(
         <div className='container col-md-12'>
             <MenuBar user={context.user} />

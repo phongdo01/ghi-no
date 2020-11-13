@@ -78,7 +78,15 @@ export default function (props) {
     useEffect(function () {
         setHistory(context.user.history)
     }, [context.user])
-    
+    const didMount = async ()=>{
+        const user = context.user
+        const ref = firebase.database().ref('account/' + user.username)
+        const snap = await (await ref.once('value')).val()
+        setHistory(snap.history)
+    }
+    useEffect(function(){
+        didMount()
+    }, [])
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Tên', width: 130 },
