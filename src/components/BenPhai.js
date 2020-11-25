@@ -10,6 +10,7 @@ export default function (props) {
     let [amount, setAmount] = useState('')
     let [history, setHistory] = useState([])
     let [search, setSearch] = useState('')
+    let [reason, setReason] = useState('')
     let getOnChange = function (e) {
         const name = e.target.name
         const value = e.target.value
@@ -19,6 +20,8 @@ export default function (props) {
             case 'amount': setAmount(value)
                 break
             case 'search': setSearch(value)
+                break
+            case 'reason': setReason(value)
         }
     }
     let onAiNo = async function () {
@@ -42,7 +45,8 @@ export default function (props) {
         history.unshift({
             name: name, amount: Number(amount),
             date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
-            type: 'out'
+            type: 'out',
+            reason: reason||''
         })
         user.history = history
         ref.set(user)
@@ -69,7 +73,8 @@ export default function (props) {
         history.unshift({
             name: name, amount: Number(amount),
             date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
-            type: 'in'
+            type: 'in',
+            reason: reason||''
         })
         user.history = history
         ref.set(user)
@@ -109,6 +114,12 @@ export default function (props) {
                 // params.getValue('type') == 'in' ? 'Vay' : 'Cho vay'
                 typeOfAction(params.getValue('type'))
         },
+        {
+            field: 'reason',
+            headerName: 'Lý do',
+            // type: 'string',
+            // width: 150,
+        },
     ];
     let data = (history || []).map((e, p) => {
         return {
@@ -129,9 +140,11 @@ export default function (props) {
                 <form>
                     <div className='row form-inline'>
                         <span>Tên:</span>
-                        <input className='form-control ml-2' name='name' onChange={getOnChange.bind(this)} />
+                        <input className='form-control ml-2 col-md-2' name='name' onChange={getOnChange.bind(this)} />
                         <span className='ml-3'>Số tiền</span>
-                        <input type='number' className='form-control ml-2' name='amount' onChange={getOnChange.bind(this)} />
+                        <input type='number' className='form-control ml-2 col-md-2' name='amount' onChange={getOnChange.bind(this)} />
+                        <span className='ml-3'>Lý do</span>
+                        <input type='text' className='form-control ml-2 col-md-3' name='reason' onChange={getOnChange.bind(this)} placeholder={'Không bắt buộc'}/>
                         {/* <button className='btn btn-primary ml-2'>Thêm</button> */}
                         <button type='reset' className='btn btn-primary ml-3' onClick={onAiNo.bind(this)}><i>Ai nợ</i></button>
                         <button type='reset' className='btn btn-primary ml-3' onClick={onNoAi.bind(this)}><i>Nợ ai</i></button>

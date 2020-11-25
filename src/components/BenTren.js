@@ -24,7 +24,7 @@ export default function (props) {
     useEffect(function () {
         // console.log('aiNo: ', aiNo)
         const { user } = context
-        user.aiNo ? setAiNo([...user.aiNo]) : setAiNo([])
+        user.aiNo ? setAiNo([...user.aiNo.filter(e=>e.amount!=0)]) : setAiNo([])
         // setAiNo([...context.user.aiNo]||[])
     }, [context.user])
     useEffect(function () {
@@ -34,7 +34,8 @@ export default function (props) {
         const user = context.user
         const ref = firebase.database().ref('account/' + user.username)
         const snap = await (await ref.once('value')).val()
-        const aiNo = snap.aiNo || []
+        let aiNo = snap.aiNo || []
+        aiNo = aiNo.filter(e=>e.amount!=0)
         setAiNo(aiNo)
     }
     function openModal(e, k) {
@@ -59,7 +60,7 @@ export default function (props) {
             </div>
             <div className="card-body">
                 {
-                    aiNo.map((e, k) => (
+                    aiNo.length!=0 && aiNo.map((e, k) => (
                         <div key={k} className='row col-md-12'>
                             <div className='col-md-4'>{e.name}</div>
                             {/* <div className='col-md-6'>{e.amount}$</div> */}

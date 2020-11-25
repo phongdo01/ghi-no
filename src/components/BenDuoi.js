@@ -34,7 +34,8 @@ export default function (props) {
         const user = context.user
         const ref = firebase.database().ref('account/' + user.username)
         const snap = await (await ref.once('value')).val()
-        const noAi = snap.noAi || []
+        let noAi = snap.noAi || []
+        noAi = noAi.filter(e=>e.amount!=0)
         setNoAi(noAi)
     }
     function openModal(e, k) {

@@ -61,8 +61,6 @@ let onAiNo = async function (context, amount, index, type) {
     let aiNo = snap.aiNo || []
     let history = snap.history || []
     aiNo[index].amount += type == 'T' ? Number(amount) : Number(amount) * (-1)
-
-    user.aiNo = aiNo
     let dat = new Date();
     let name = aiNo[index].name
     history.unshift({
@@ -70,6 +68,8 @@ let onAiNo = async function (context, amount, index, type) {
         date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
         type: type == 'G' ? 'tnm' : 'out'
     })
+    aiNo = aiNo.filter(e=>e.amount!=0)
+    user.aiNo = aiNo
     user.history = history
     ref.set(user)
     context.setUser({ ...user })
@@ -83,8 +83,6 @@ let onNoAi = async function (context, amount, index, type) {
     let history = snap.history || []
 
     noAi[index].amount += type == 'T' ? Number(amount) : Number(amount) * (-1)
-
-    user.noAi = noAi
     let dat = new Date();
     let name = noAi[index].name
     history.unshift({
@@ -92,6 +90,8 @@ let onNoAi = async function (context, amount, index, type) {
         date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
         type: type == 'G' ? 'mtn' : 'in'
     })
+    noAi = noAi.filter(e=>{return e.amount!=0})
+    user.noAi = noAi
     user.history = history
     ref.set(user)
     context.setUser({ ...user })
