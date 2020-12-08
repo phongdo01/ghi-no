@@ -46,7 +46,7 @@ export default function (props) {
             name: name, amount: Number(amount),
             date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
             type: 'out',
-            reason: reason||''
+            reason: reason || ''
         })
         user.history = history
         ref.set(user)
@@ -74,7 +74,7 @@ export default function (props) {
             name: name, amount: Number(amount),
             date: dat.getHours() + ':' + dat.getMinutes() + ' ' + dat.getDate() + '-' + (dat.getMonth() + 1) + '-' + dat.getFullYear(),
             type: 'in',
-            reason: reason||''
+            reason: reason || ''
         })
         user.history = history
         ref.set(user)
@@ -83,13 +83,13 @@ export default function (props) {
     useEffect(function () {
         setHistory(context.user.history)
     }, [context.user])
-    const didMount = async ()=>{
+    const didMount = async () => {
         const user = context.user
         const ref = firebase.database().ref('account/' + user.username)
         const snap = await (await ref.once('value')).val()
         setHistory(snap.history)
     }
-    useEffect(function(){
+    useEffect(function () {
         didMount()
     }, [])
     const columns = [
@@ -127,28 +127,29 @@ export default function (props) {
             id: p
         }
     })
-    let dt = data.filter(e=>e.name.toUpperCase().includes(search.toUpperCase()))
+    let dt = data.filter(e => e.name.toUpperCase().includes(search.toUpperCase()))
     return (
         <div className="card" style={{ height: '100%' }}>
             <div className="card-header col-md-12">
                 Thông tin
                 <div id='search' className='col-md-3 d-inline row'>
-                    <input type='text' className='form-control float-right col-md-3' placeholder='Lọc theo tên' name='search' onChange={getOnChange.bind(this)}/>
+                    <input type='text' className='form-control float-right col-md-3' placeholder='Lọc theo tên' name='search' onChange={getOnChange.bind(this)} />
                 </div>
             </div>
             <div className="card-body">
                 <form>
-                    <div className='row form-inline'>
+                    <div className='row form-inline' id='thong-tin'>
                         <span>Tên:</span>
                         <input className='form-control ml-2 col-md-2' name='name' onChange={getOnChange.bind(this)} />
                         <span className='ml-3'>Số tiền</span>
                         <input type='number' className='form-control ml-2 col-md-2' name='amount' onChange={getOnChange.bind(this)} />
                         <span className='ml-3'>Lý do</span>
-                        <input type='text' className='form-control ml-2 col-md-3' name='reason' onChange={getOnChange.bind(this)} placeholder={'Không bắt buộc'}/>
+                        <input type='text' className='form-control ml-2 col-md-3' name='reason' onChange={getOnChange.bind(this)} placeholder={'Không bắt buộc'} />
                         {/* <button className='btn btn-primary ml-2'>Thêm</button> */}
-                        <button type='reset' className='btn btn-primary ml-3' onClick={onAiNo.bind(this)}><i>Ai nợ</i></button>
-                        <button type='reset' className='btn btn-primary ml-3' onClick={onNoAi.bind(this)}><i>Nợ ai</i></button>
-
+                        <div className='inline' id='btn-grp'>
+                            <button type='reset' className='btn btn-primary ml-3 btn2' onClick={onAiNo.bind(this)}><i>Ai nợ</i></button>
+                            <button type='reset' className='btn btn-primary ml-3 btn2' onClick={onNoAi.bind(this)}><i>Nợ ai</i></button>
+                        </div>
                     </div>
                 </form>
                 <div id='history' className='mt-3' style={{ height: 400, width: '100%' }}>

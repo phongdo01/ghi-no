@@ -5,6 +5,18 @@ export default function menuBar({ user }) {
         localStorage.clear();
         window.location.href = '/';
     }
+    const dsCo = function(e) {
+        e.preventDefault()
+        let element = document.getElementById('id-menu')
+        let liElement = element.getElementsByTagName('li')
+        const leng = liElement.length
+        for (let i=0; i<leng; i++) {
+            liElement[i].classList.remove('active')
+        }
+        // element.classList.remove('active')
+        // element = document.getElementById('tab2')
+        // element.classList.add('active')
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="a"></a>
@@ -12,15 +24,15 @@ export default function menuBar({ user }) {
                 <span className="navbar-toggler-icon" />
             </button>
             <div className="collapse navbar-collapse" id="navbarText">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="b">Home <span className="sr-only">(current)</span></a>
+                <ul className="nav nav-tabs mr-auto" id='id-menu'>
+                    <li className="nav-item">
+                        <a className="nav-link active" href="#profile" role="tab" data-toggle="tab" id="tab1">Vay/nợ <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="c">Features</a>
+                        <a className="nav-link" role="tab" data-toggle="tab" href="#buzz" id="tab2">Danh sách cỗ</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="d">Pricing</a>
+                        <a className="nav-link" role="tab" data-toggle="tab" id="tab3" href="#references">Giới thiệu</a>
                     </li>
                 </ul>
                 <span className="navbar-text">
