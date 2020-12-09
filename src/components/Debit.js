@@ -4,6 +4,7 @@ import MenuBar from './MenuBar'
 import BenPhai from './BenPhai'
 import BenTren from './BenTren'
 import BenDuoi from './BenDuoi'
+import InfomationCo from '././Co/InfomationCo' 
 
 export default function (props) {
   let context = useContext(mcontext)
@@ -20,7 +21,7 @@ export default function (props) {
         </div> */}
         <div className="tab-content col-md-8" id='benphai'>
           <div role="tabpanel" className="tab-pane fade" id="profile"> <BenPhai /> </div>
-          <div role="tabpanel" className="tab-pane fade in active" id="buzz">Gioi thieu</div>
+          <div role="tabpanel" className="tab-pane fade in active" id="buzz"><InfomationCo /></div>
           <div role="tabpanel" className="tab-pane fade" id="references">Danh sach co</div>
         </div>
       </div>
