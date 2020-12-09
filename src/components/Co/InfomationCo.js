@@ -9,7 +9,7 @@ export default function (props) {
     let context = useContext(mcontext)
     let [name, setName] = useState('')
     let [amount, setAmount] = useState('')
-    let [history, setHistory] = useState([])
+    let [historyCo, sethistoryCo] = useState([])
     let [search, setSearch] = useState('')
     const [startDate, setStartDate] = useState(new Date())
     let getOnChange = function (e) {
@@ -37,25 +37,31 @@ export default function (props) {
             const ref = firebase.database().ref('account/' + user.username)
             const snap = await (await ref.once('value')).val()
             let subMit = snap.subMit || []
-            let history = snap.history || []
-            let index = subMit.findIndex(e => e.name.toUpperCase() == name.toUpperCase())
-            if (index !== -1) {
-                subMit[index].amount += Number(amount)
-            } else {
-                subMit.push({ name: name, amount: Number(amount), date: startDate })
-            }
-            user.subMit = subMit
-            history.unshift({
+            let historyCo = snap.historyCo || []
+            
+            historyCo.unshift({
             name: name, amount: Number(amount),
             date: startDate,
         })
-        user.history = history
+        console.log('hung: ', historyCo)
+        user.historyCo = historyCo
         ref.set(user)
         context.setUser({ ...user })
         }
     }
-
-    let dataCo = (history || []).map((e, p) => {
+    useEffect(function () {
+        sethistoryCo(context.user.historyCo)
+    }, [context.user])
+    const didMount = async () => {
+        const user = context.user
+        const ref = firebase.database().ref('account/' + user.username)
+        const snap = await (await ref.once('value')).val()
+        sethistoryCo(snap.historyCo)
+    }
+    useEffect(function () {
+        didMount()
+    }, [])
+    let dataCo = (historyCo || []).map((e, p) => {
         return {
             ...e,
             id: p
@@ -98,7 +104,7 @@ export default function (props) {
                     </div>
                 </form>
             </div>
-            <div id='history' className='mt-3' style={{ height: 400, width: '100%' }}>
+            <div id='historyCo' className='mt-3' style={{ height: 400, width: '100%' }}>
                     <DataGrid rows={dtCo} columns={columns} pageSize={5} />
             </div>
         </div>
