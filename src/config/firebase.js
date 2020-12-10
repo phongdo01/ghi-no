@@ -11,25 +11,17 @@ import * as firebase from 'firebase';
 //     measurementId: "G-EJGDGFYR24"
 //   };
 //dev 
+
   var firebaseConfig = {
-    apiKey: "AIzaSyAREsU8WRJeaISQztIapMUGIUYB7tAMiK8",
-    authDomain: "test-ghi-no.firebaseapp.com",
-    databaseURL: "https://test-ghi-no.firebaseio.com",
-    projectId: "test-ghi-no",
-    storageBucket: "test-ghi-no.appspot.com",
-    messagingSenderId: "421898354366",
-    appId: "1:421898354366:web:f647d1dc1148ca75d728ef",
-    measurementId: "G-397K9ZJX9M"
+    apiKey: "AIzaSyAbMEnbT6tPwOFCrtbA8u-KtdxhY0eN0HE",
+    authDomain: "test-33852.firebaseapp.com",
+    databaseURL: "https://test-33852-default-rtdb.firebaseio.com",
+    projectId: "test-33852",
+    storageBucket: "test-33852.appspot.com",
+    messagingSenderId: "674838361413",
+    appId: "1:674838361413:web:b704d188a0f7b9f634fa2c",
+    measurementId: "G-CQN0FGV37D"
   };
-  // var firebaseConfig = {
-  //   apiKey: "AIzaSyDEdJRhSA-d1KupUU6ywZgIDVlZEnmiOmc",
-  //   authDomain: "test-ghi-no-743de.firebaseapp.com",
-  //   projectId: "test-ghi-no-743de",
-  //   storageBucket: "test-ghi-no-743de.appspot.com",
-  //   messagingSenderId: "263761454991",
-  //   appId: "1:263761454991:web:ba7635db84b3bbac988dfa",
-  //   measurementId: "G-L31PGPDB0D"
-  // };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 //   firebase.analytics();
