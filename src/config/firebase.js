@@ -21,6 +21,15 @@ import * as firebase from 'firebase';
     appId: "1:421898354366:web:f647d1dc1148ca75d728ef",
     measurementId: "G-397K9ZJX9M"
   };
+  // var firebaseConfig = {
+  //   apiKey: "AIzaSyDEdJRhSA-d1KupUU6ywZgIDVlZEnmiOmc",
+  //   authDomain: "test-ghi-no-743de.firebaseapp.com",
+  //   projectId: "test-ghi-no-743de",
+  //   storageBucket: "test-ghi-no-743de.appspot.com",
+  //   messagingSenderId: "263761454991",
+  //   appId: "1:263761454991:web:ba7635db84b3bbac988dfa",
+  //   measurementId: "G-L31PGPDB0D"
+  // };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 //   firebase.analytics();
