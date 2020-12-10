@@ -26,6 +26,8 @@ export default function (props) {
     }
 
     let onSubmit = async function (){
+        console.log(startDate.toLocaleString())
+        console.log(typeof(startDate.toLocaleString()))
         if(name == '' || name == null){
             alert('Bạn chưa nhập tên')
         }
@@ -41,7 +43,7 @@ export default function (props) {
             
             historyCo.unshift({
             name: name, amount: Number(amount),
-            date: startDate,
+            date: startDate.toLocaleString(),
         })
         console.log('hung: ', historyCo)
         user.historyCo = historyCo
@@ -49,9 +51,11 @@ export default function (props) {
         context.setUser({ ...user })
         }
     }
+
     useEffect(function () {
         sethistoryCo(context.user.historyCo)
     }, [context.user])
+
     const didMount = async () => {
         const user = context.user
         const ref = firebase.database().ref('account/' + user.username)
@@ -61,12 +65,14 @@ export default function (props) {
     useEffect(function () {
         didMount()
     }, [])
+
     let dataCo = (historyCo || []).map((e, p) => {
         return {
             ...e,
             id: p
         }
     })
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Tên', width: 130 },
@@ -75,8 +81,12 @@ export default function (props) {
             field: 'date',
             headerName: 'Ngày thực hiện',
             // type: 'string',
-            width: 150,
-        }
+            width: 250,
+        },
+        { 
+            field: 'amount', headerName: 'Số tiền', width: 130,
+            renderCell: (params)=>(<span><i class="fas fa-trash-alt">Delete</i></span>)
+        },
     ];
     let dtCo = dataCo.filter(e => e.name.toUpperCase().includes(search.toUpperCase()))
     return (
@@ -89,6 +99,8 @@ export default function (props) {
             </div>
             <div className="card-body">
                 <form>
+                    <i class="fas fa-trash-alt">aaa</i>
+                    {/* <i className="fa fa-trash ml-1" aria-hidden="true">hung</i> */}
                     <div className='row form-inline' id='thong-tin'>
                         <span>Tên:</span>
                         <input className='form-control ml-2 col-md-2' name='name' onChange={getOnChange.bind(this)}/>
@@ -96,7 +108,7 @@ export default function (props) {
                         <input type='number' className='form-control ml-2 col-md-2' name='amount' onChange={getOnChange.bind(this)}/>
                         <span className='ml-3'>Ngày thực hiện:</span>
                         <div id='dateCo' style={{zIndex:'999'}}>
-                            <DatePicker className='ml-3' selected={startDate} name='dateCo' onChange={date => setStartDate(date)} />
+                            <DatePicker className='ml-3 form-control' selected={startDate} name='dateCo' onChange={date => setStartDate(date)} />
                         </div>
                         <div className='inline' id='btn-grp'>
                             <button type='reset' className='btn btn-primary ml-3 btn2' onClick={onSubmit.bind(this)}><i>Xác nhận</i></button>
@@ -105,7 +117,7 @@ export default function (props) {
                 </form>
             </div>
             <div id='historyCo' className='mt-3' style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={dtCo} columns={columns} pageSize={5} />
+                <DataGrid rows={dtCo} columns={columns} pageSize={5} />
             </div>
         </div>
     )
