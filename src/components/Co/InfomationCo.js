@@ -45,7 +45,6 @@ export default function (props) {
             name: name, amount: Number(amount),
             date: startDate.toLocaleString(),
         })
-        console.log('hung: ', historyCo)
         user.historyCo = historyCo
         ref.set(user)
         context.setUser({ ...user })
@@ -99,8 +98,6 @@ export default function (props) {
             </div>
             <div className="card-body">
                 <form>
-                    <i class="fas fa-trash-alt">aaa</i>
-                    {/* <i className="fa fa-trash ml-1" aria-hidden="true">hung</i> */}
                     <div className='row form-inline' id='thong-tin'>
                         <span>Tên:</span>
                         <input className='form-control ml-2 col-md-2' name='name' onChange={getOnChange.bind(this)}/>
