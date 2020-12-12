@@ -25,16 +25,16 @@ export default function menuBar({ user }) {
             </button>
             <div className="collapse navbar-collapse" id="navbarText">
                 <ul className="nav nav-tabs mr-auto" id='id-menu'>
+
                     <li className="nav-item">
-                        <a className="nav-link active" role="tab" data-toggle="tab" id="tab3" href="#references">Giới thiệu</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#profile" role="tab" data-toggle="tab" id="tab1">Vay/nợ <span className="sr-only">(current)</span></a>
+                        <a className="nav-link active" href="#profile" role="tab" data-toggle="tab" id="tab1">Vay/nợ <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" role="tab" data-toggle="tab" href="#buzz" id="tab2">Danh sách cỗ</a>
                     </li>
-
+                    <li className="nav-item">
+                        <a className="nav-link" role="tab" data-toggle="tab" id="tab3" href="#references">Giới thiệu</a>
+                    </li>
                 </ul>
                 <span className="navbar-text">
 

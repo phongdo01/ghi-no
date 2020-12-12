@@ -17,9 +17,9 @@ export default function (props) {
           <BenDuoi />
         </div>
         <div className="tab-content col-md-8" id='benphai'>
-            <div role="tabpanel" className="tab-pane fade" id="profile"> <BenPhai /> </div>
+            <div role="tabpanel" className="tab-pane fade show active" id="profile"> <BenPhai /> </div>
             <div role="tabpanel" className="tab-pane fade" id="buzz"><InfomationCo /></div>
-            <div role="tabpanel" className="tab-pane fade show active" id="references">Danh sách cỗ</div>
+            <div role="tabpanel" className="tab-pane fade" id="references">Danh sách cỗ</div>
         </div>
         </div>
       {/* <div class="tab-content">
