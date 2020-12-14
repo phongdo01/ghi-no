@@ -25,27 +25,27 @@ export default function (props) {
         }
     }
 
-    let onSubmit = async function (){
-        if(name == '' || name == null){
+    let onSubmit = async function () {
+        if (name == '' || name == null) {
             alert('Bạn chưa nhập tên')
+            return
         }
-        else if(amount == '' || name == amount){
+        else if (amount == '' || name == amount) {
             alert('Bạn chưa nhập số tiền')
+            return
         }
         else {
             const user = context.user
             const ref = firebase.database().ref('account/' + user.username)
             const snap = await (await ref.once('value')).val()
-            let subMit = snap.subMit || []
             let historyCo = snap.historyCo || []
-            
             historyCo.unshift({
-            name: name, amount: Number(amount),
-            date: startDate.toLocaleString(),
-        })
-        user.historyCo = historyCo
-        ref.set(user)
-        context.setUser({ ...user })
+                name: name, amount: Number(amount),
+                date: startDate.toLocaleString(),
+            })
+            user.historyCo = historyCo
+            ref.set(user)
+            context.setUser({ ...user })
         }
     }
 
@@ -80,9 +80,9 @@ export default function (props) {
             // type: 'string',
             width: 250,
         },
-        { 
-            field: 'amount', headerName: 'Số tiền', width: 130,
-            renderCell: (params)=>(<span><i class="fas fa-trash-alt">Delete</i></span>)
+        {
+            field: 'feature', headerName: 'Số tiền', width: 130,
+            renderCell: (params) => (<span><i className="fas fa-trash-alt">Delete</i></span>)
         },
     ];
     let dtCo = dataCo.filter(e => e.name.toUpperCase().includes(search.toUpperCase()))
@@ -99,12 +99,12 @@ export default function (props) {
                 <form>
                     <div className='row form-inline' id='thong-tin'>
                         <span>Tên:</span>
-                        <input className='form-control ml-2 col-md-2' name='name' onChange={getOnChange.bind(this)}/>
+                        <input className='form-control ml-2 col-md-2' name='name' onChange={getOnChange.bind(this)} />
                         <span className='ml-3'>Số tiền:</span>
-                        <input type='number' className='form-control ml-2 col-md-2' name='amount' onChange={getOnChange.bind(this)}/>
+                        <input type='number' className='form-control ml-2 col-md-2' name='amount' onChange={getOnChange.bind(this)} />
                         <span className='ml-3'>Ngày thực hiện:</span>
-                        <div id='dateCo' style={{zIndex:'999'}}>
-                            <DatePicker className='ml-3 form-control' selected={startDate} name='dateCo' onChange={date => setStartDate(date)} />
+                        <div id='dateCo' style={{ zIndex: '999' }}>
+                            <DatePicker className='ml-3 form-control' selected={startDate} name='dateCo' onChange={date => setStartDate(date)} dateFormat="dd/MM/yyyy" />
                         </div>
                         <div className='inline' id='btn-grp'>
                             <button type='reset' className='btn btn-primary ml-3 btn2' onClick={onSubmit.bind(this)}><i>Xác nhận</i></button>
