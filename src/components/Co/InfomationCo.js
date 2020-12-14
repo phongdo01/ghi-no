@@ -26,8 +26,6 @@ export default function (props) {
     }
 
     let onSubmit = async function (){
-        console.log(startDate.toLocaleString())
-        console.log(typeof(startDate.toLocaleString()))
         if(name == '' || name == null){
             alert('Bạn chưa nhập tên')
         }
@@ -88,6 +86,7 @@ export default function (props) {
         },
     ];
     let dtCo = dataCo.filter(e => e.name.toUpperCase().includes(search.toUpperCase()))
+    console.log('hung', dtCo)
     return (
         <div className="card" style={{ height: '100%' }}>
             <div className="card-header col-md-12">
